@@ -109,6 +109,7 @@ $allowed_options            = array(
 		'comment_moderation',
 		'require_name_email',
 		'comment_previously_approved',
+		'auto_approve_self_pingbacks',
 		'comment_max_links',
 		'moderation_keys',
 		'disallowed_keys',
