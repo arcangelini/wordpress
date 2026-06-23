@@ -117,6 +117,7 @@ class WP_Test_REST_Settings_Controller extends WP_Test_REST_Controller_Testcase 
 			'page_on_front',
 			'page_for_posts',
 			'default_ping_status',
+			'auto_approve_self_pingbacks',
 			'default_comment_status',
 			'site_icon', // Registered in wp-includes/blocks/site-logo.php
 		);
