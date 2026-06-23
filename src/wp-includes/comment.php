@@ -1350,6 +1350,53 @@ function wp_check_comment_data( $comment_data ) {
 }
 
 /**
+ * Automatically approves a pingback that originates from this site.
+ *
+ * A self-pingback is generated when one post on the site links to another post
+ * on the same site. When the `auto_approve_self_pingbacks` option is enabled,
+ * such pingbacks are approved instead of being held for moderation.
+ *
+ * Only pending pingbacks are affected; comments already flagged as approved,
+ * spam, or trash (or returning a WP_Error) are left untouched.
+ *
+ * The source is identified from `comment_author_url`. For a pingback this is the
+ * source URL that core has already fetched and verified actually links to the
+ * target post, so a URL resolving to a local post indicates genuine local content.
+ *
+ * @since 7.1.0
+ *
+ * @param int|string|WP_Error $approved     The approval status. Accepts 1, 0, 'spam', 'trash',
+ *                                           or WP_Error.
+ * @param array               $comment_data Comment data.
+ * @return int|string|WP_Error The (possibly updated) approval status.
+ */
+function wp_auto_approve_self_pingback( $approved, $comment_data ) {
+	// Only act on pending comments; leave approved, spam, trash, and errors alone.
+	if ( 0 !== $approved && '0' !== $approved ) {
+		return $approved;
+	}
+
+	if ( ! get_option( 'auto_approve_self_pingbacks' ) ) {
+		return $approved;
+	}
+
+	if ( empty( $comment_data['comment_type'] ) || 'pingback' !== $comment_data['comment_type'] ) {
+		return $approved;
+	}
+
+	if ( empty( $comment_data['comment_author_url'] ) ) {
+		return $approved;
+	}
+
+	// The pingback source URL resolves to a post on this site, so treat it as a self-pingback.
+	if ( url_to_postid( $comment_data['comment_author_url'] ) > 0 ) {
+		return 1;
+	}
+
+	return $approved;
+}
+
+/**
  * Checks if a comment contains disallowed characters or words.
  *
  * @since 5.5.0

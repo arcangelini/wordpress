@@ -431,6 +431,7 @@ function populate_options( array $options = array() ) {
 		'default_comment_status'          => 'open',
 		'default_ping_status'             => 'open',
 		'default_pingback_flag'           => 1,
+		'auto_approve_self_pingbacks'     => 0,
 		'posts_per_page'                  => 10,
 		/* translators: Default date format, see https://www.php.net/manual/datetime.format.php */
 		'date_format'                     => __( 'F j, Y' ),

@@ -176,6 +176,8 @@ $thread_comments_depth .= '</select>';
 <?php _e( 'Comment must be manually approved' ); ?> </label>
 <br />
 <label for="comment_previously_approved"><input type="checkbox" name="comment_previously_approved" id="comment_previously_approved" value="1" <?php checked( '1', get_option( 'comment_previously_approved' ) ); ?> /> <?php _e( 'Comment author must have a previously approved comment' ); ?></label>
+<br />
+<label for="auto_approve_self_pingbacks"><input type="checkbox" name="auto_approve_self_pingbacks" id="auto_approve_self_pingbacks" value="1" <?php checked( '1', get_option( 'auto_approve_self_pingbacks' ) ); ?> /> <?php _e( 'Automatically approve pingbacks from this site' ); ?></label>
 </fieldset></td>
 </tr>
 <?php $comment_moderation_title = __( 'Comment Moderation' ); ?>
